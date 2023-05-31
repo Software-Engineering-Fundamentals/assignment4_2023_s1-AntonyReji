@@ -17,8 +17,7 @@ import java.util.Date;
  * Initialize the test object with initialise method.
  */
 public class AddStudent {
-	
-	
+	// @Test1
 
 
 }

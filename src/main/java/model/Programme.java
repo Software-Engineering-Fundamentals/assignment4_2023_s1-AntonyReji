@@ -94,12 +94,32 @@ public class Programme {
      * @return true if the student is successfully enrolled, false otherwise
      */
 
-    public boolean addStudent(Student student){
-    	return false;
+    public boolean addStudent(Student student, Date currDate){
+        Date starDate = getStartDate();
+        if (currDate.compareTo(startDate) > 0){
+            return false;
+        }
+        else{
+            if (enrolled.contains(student)){
+            
+                throw new IllegalStudentEnrollException("Student Already Enrolled");
+                return false;
+            }
+            else if( enrolled.size()>=250){
+                return false;
+                
+            }
+            else{
+                enrolled.add(student);
+                Football football;
+                football.addAvailStudent(student);
+                return true;
+
+            }
+
+            
+        }
    
     }
-
-
-
 
 }
