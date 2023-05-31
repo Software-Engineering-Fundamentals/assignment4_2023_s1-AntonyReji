@@ -8,7 +8,7 @@ import java.util.List;
  * Football played in a university
  */
 public class Football {
-    
+    private String name;
     /**
      * Match date
      */

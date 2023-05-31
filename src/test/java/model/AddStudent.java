@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -17,7 +19,14 @@ import java.util.Date;
  * Initialize the test object with initialise method.
  */
 public class AddStudent {
-	// @Test1
+	@Test
+    void test1(){
+        Date date = new Date();
+        Programme program = new Programme();
+        program.setStartDate(LocalDate.of(24, 10, 10));
+        assertEquals(true, program.addStudent(new Student("Daniel",123),LocalDate.of(23,10,14)));
+    }
+
 
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,17 +13,17 @@ public class Programme {
      * Name and id of the programme
      */
     private String name;
-    print int pID;
+    private String pID;
 
     /**
      * Start date of the programme
      */
-    private Date startDate;
+    private LocalDate startDate;
 
     /**
      * End date of the programme
      */
-    private Date dueDate;
+    private LocalDate dueDate;
 
     /**
      * Estimated duration of the course in months
@@ -46,24 +47,24 @@ public class Programme {
         return pID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.pID = ID;
     }
 
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -91,33 +92,39 @@ public class Programme {
     /**
      * Add a new student to the programme
      * @param Student: to enroll  to student in a programme 
+     * @param Date: to check enrolemnt is within time
      * @return true if the student is successfully enrolled, false otherwise
      */
 
-    public boolean addStudent(Student student, Date currDate){
-        Date starDate = getStartDate();
-        if (currDate.compareTo(startDate) > 0){
-            return false;
-        }
-        else{
-            if (enrolled.contains(student)){
-            
-                throw new IllegalStudentEnrollException("Student Already Enrolled");
+    public boolean addStudent(Student student, LocalDate localDate){
+        // Date starDate = getStartDate();
+       try { 
+            if (localDate.compareTo(startDate) > 0){
                 return false;
-            }
-            else if( enrolled.size()>=250){
-                return false;
-                
             }
             else{
-                enrolled.add(student);
-                Football football;
-                football.addAvailStudent(student);
-                return true;
+                if (enrolled.contains(student)){
+                
+                    throw new IllegalStudentEnrollException("Student Already Enrolled");
+                    
+                }
+                else if( enrolled.size()>=250){
+                    return false;
+                    
+                }
+                else{
+                    enrolled.add(student);
+                    Football football= new Football();
+                    football.addAvailStudent(student);
+                    return true;
 
+                }
+
+                
             }
-
-            
+        }
+        catch(Exception illegalStudentException){
+            return false;
         }
    
     }
