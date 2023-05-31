@@ -94,11 +94,12 @@ public class Programme {
      * @param Student: to enroll  to student in a programme 
      * @param Date: to check enrolemnt is within time
      * @return true if the student is successfully enrolled, false otherwise
+     * @throws IllegalStudentEnrollException
      */
 
-    public boolean addStudent(Student student, LocalDate localDate){
+    public boolean addStudent(Student student, LocalDate localDate) throws IllegalStudentEnrollException{
         // Date starDate = getStartDate();
-       try { 
+   
             if (localDate.compareTo(startDate) > 0){
                 return false;
             }
@@ -122,10 +123,7 @@ public class Programme {
 
                 
             }
-        }
-        catch(Exception illegalStudentException){
-            return false;
-        }
+     
    
     }
 

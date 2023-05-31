@@ -1,6 +1,7 @@
 package model;
 
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.ranges.Range;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
@@ -20,13 +21,45 @@ import java.util.Date;
  */
 public class AddStudent {
 	@Test
-    void test1(){
-        Date date = new Date();
+    void studentAbletoEnrolTest() throws IllegalStudentEnrollException{
+   
         Programme program = new Programme();
         program.setStartDate(LocalDate.of(24, 10, 10));
         assertEquals(true, program.addStudent(new Student("Daniel",123),LocalDate.of(23,10,14)));
     }
 
+    @Test
+    void studentEnrolmentLateTest() throws IllegalStudentEnrollException{
+     
+        Programme program = new Programme();
+        program.setStartDate(LocalDate.of(24, 10, 10));
+        assertEquals(false, program.addStudent(new Student("Daniel",123),LocalDate.of(24,11,14)));
+    }
 
+    @Test
+    void tooManyStudentsTest() throws IllegalStudentEnrollException{
+        
+        Programme program = new Programme();
+        program.setStartDate(LocalDate.of(24, 10, 10));
+        for (int i =0; i < 250; i++){
+             program.addStudent(new Student("Daniel",i),LocalDate.of(23,11,14));
+           
+        }
+        assertEquals(false, program.addStudent(new Student("Daniel",123),LocalDate.of(23,11,14)));
+    }
+
+
+    @Test
+    void studentAlreadyAdded() throws IllegalStudentEnrollException{
+        
+        Programme program = new Programme();
+        program.setStartDate(LocalDate.of(24, 10, 10));
+        Student student = new Student("Daniel",123);
+        
+        program.addStudent(student,LocalDate.of(23,11,14));
+           
+        
+        assertThrows(IllegalStudentEnrollException.class, ()-> program.addStudent(student,LocalDate.of(23,11,14)));
+    }
 
 }
